@@ -1,0 +1,1337 @@
+<!DOCTYPE html>
+<!--
+This is a starter template page. Use this page to start your new project from
+scratch. This page gets rid of all links and provides the needed markup only.
+-->
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>OpenGarden | JS</title>
+    <!-- Tell the browser to be responsive to screen width -->
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <!-- Bootstrap 3.3.4 -->
+    <link href="/publifab/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="/publifab/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/publifab/css/custom.css" rel="stylesheet" type="text/css" />
+    <link href="/publifab/dist/js/css/selectize.css" rel="stylesheet" type="text/css" />
+    <link href="/publifab/dist/js/css/bootstrap-datepicker.min.css" rel="stylesheet" type="text/css" />
+    <link href="/publifab/alert/sweetalert.css" rel="stylesheet" type="text/css" />
+    <link href="/publifab/alert/please-wait.css" rel="stylesheet" type="text/css" />
+     <link href="/publifab/d3/nv.d3.css" rel="stylesheet" type="text/css" />
+   <!-- DATA TABLES -->
+    <link href="/publifab/dist/datatables/jquery.dataTables.css" rel="stylesheet" type="text/css" />
+
+    <!-- Theme style -->
+    <link href="/publifab/dist/css/AdminLTE.css" rel="stylesheet" type="text/css" />
+    <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
+		page. However, you can choose any other skin. Make sure you
+		apply the skin class to the body tag so the changes take effect.
+		-->
+    <link href="/publifab/dist/css/skins/skin-blue.min.css" rel="stylesheet" type="text/css" />
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+		<script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+
+		<!--[ajouts pour diminuer la largeur de side bar]-->
+    <style>
+        @media(min-width:768px) {
+            .main-header> .navbar {
+                margin-left: 300px;
+            }
+            .main-header .logo {
+                width: 300px;
+            }
+        }
+        
+        @media(min-width:768px) {
+            .content-wrapper, .right-side, .main-footer {
+                margin-left: 150px;
+            }
+            .main-sidebar,
+            .left-side {
+                width: 150px;
+                font-size: 20px;
+            }
+        }
+        
+         .axis text {
+				font-family: sans-serif;
+				font-size: 15px;
+			}
+        
+        
+    </style>
+
+</head>
+
+
+<body class="skin-blue sidebar-mini">
+
+    <div class="wrapper">
+
+        <header class="main-header">
+
+            <!-- Logo -->
+            <a href="#shiny-tab-home" class="logo">
+                <!-- mini logo for sidebar mini 50x50 pixels --><span class="logo-mini"><b>O</b>G</span>
+                <!-- logo for regular state and mobile devices --><span class="logo-lg"><b>Open</b>Garden</span>
+             </a>
+
+            <!-- Header Navbar -->
+            <nav class="navbar navbar-static-top" role="navigation">
+                <!-- Sidebar toggle button-->
+                 <ul class="nav navbar-nav">
+                <li><a href="#" class="glyphicon glyphicon-resize-horizontal"  data-toggle="offcanvas" role="button"> <span>Elargir la vue</span> </a></li> 
+                <li><button  class="btn btn-primary"></button></li>                           
+               <li><a id="rappel" class="btn btn-info btn-lg"><i class="glyphicon glyphicon-refresh"></i>Recharger son jardin</a></li>
+                <li><button class="btn btn-primary"></button></li>
+               <li><a  class="btn btn-info btn-lg"><input id="jarold" name="jarold" type="file" accept=".json" /></i></a></li>
+               <li><button class="btn btn-primary"></button></li>                             
+                <li><a id="fichactu" class="btn btn-success btn-lg"> <i class="glyphicon glyphicon-download-alt"></i> Sauvegarder </a></li>
+                <li><button class="btn btn-primary" ></button></li>
+                <li><a id="quitter" class="btn btn-danger btn-lg" ><span style="font-size:20px;">Quitter</span></a></li>
+                
+                 </ul>      
+   
+                <!-- Navbar Right Menu -->
+                <div class="navbar-custom-menu">
+
+                    <ul class="nav navbar-nav">
+
+                        <!-- Control Sidebar Toggle Button -->
+                        <li>
+                            <a href="#" data-toggle="control-sidebar" id="plus"><i class="glyphicon glyphicon-plus"></i></a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+
+        </header>
+        <aside class="main-sidebar">
+            <section class="sidebar">
+                <ul class="sidebar-menu">
+                    <li>
+                        <a href="#shiny-tab-home" data-toggle="tab" data-value="home"> <i class="glyphicon glyphicon-home"></i> <span> Accueil</span> </a>
+                    </li>
+                    <li>
+                        <a href="#shiny-tab-dimnom" data-toggle="tab" data-value="dimnom"> <i class="glyphicon glyphicon-wrench"></i><span> Dimensions</span> </a>
+                    </li>
+                    <li>
+                        <a href="#shiny-tab-struc" data-toggle="tab" data-value="struc"> <i class="glyphicon glyphicon-tree-deciduous"></i> <span> Vergers</span> </a>
+                    </li>
+                    <li>
+                        <a href="#shiny-tab-jardins" data-toggle="tab" data-value="jardins"> <i class="glyphicon glyphicon-th"></i> <span> Potagers</span> </a>
+                    </li>
+                    <li>
+                        <a href="#shiny-tab-plan" data-toggle="tab" data-value="plan"> <i class="glyphicon glyphicon-calendar"></i> <span id="planning"> Planning</span> </a>
+                    </li>
+              
+              
+						<li>
+						<a  href="#og-tab-tab" data-toggle="tab"> <i class="glyphicon glyphicon-th-list" ></i><span  id="tabparcelles"> Parcelles</span> </a>
+						 </li>
+
+	                   <li>
+						<a  href="#og-tab-legraf" data-toggle="tab"> <i class="glyphicon glyphicon-stats" ></i><span  id="barlegumes"> Légumes</span> </a>
+						</li>
+                       <li>
+						<a  href="#og-tab-arbres" data-toggle="tab"> <i class="glyphicon glyphicon-apple" ></i><span  id="fruits"> Fruits</span> </a>
+						</li>
+						
+                </ul>
+            </section>
+        </aside>
+
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="shiny-tab-home">
+                              <div class="progress">
+                                        <div id= "progression" class="progress-bar progress-bar-info">Chargement des données.</div>
+     						                       </div>
+                        <div class="row">
+                       <div class="col-sm-8">
+
+                                <!-- Small boxes (Stat box) -->
+                                <div class="row">
+                                    <div class="col-lg-4 col-xs-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-aqua">
+                                            <div class="inner">
+                                                <h3 id="nbparcelles"></h3>
+                                                <p>
+                                                    Parcelles.
+                                                </p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="glyphicon glyphicon-th"></i>
+                                            </div>
+                                            <a href="#" class="small-box-footer">Liste cliquer en haut à droite <i class="glyphicon glyphicon-plus"></i></a>
+                                        </div>
+                                    </div>
+                                    <!-- ./col -->
+                                    <div class="col-lg-4 col-xs-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-green">
+                                            <div class="inner">
+                                                <h3 id="typeleg"></h3>
+                                                <p>
+                                                    Espèces de légumes.
+                                                </p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="glyphicon glyphicon-grain"></i>
+                                            </div>
+                                            <a href="#" class="small-box-footer">Liste cliquer en haut à droite <i class="glyphicon glyphicon-grain"></i></a>
+                                        </div>
+                                    </div>
+                                    <!-- ./col -->
+                                    <div class="col-lg-4 col-xs-6">
+                                        <!-- small box -->
+                                        <div class="small-box bg-yellow">
+                                            <div class="inner">
+                                                <h3 id="nbarb"></h3>
+                                                <p>
+                                                    Arbres fruitiers.
+                                                </p>
+                                            </div>
+                                            <div class="icon">
+                                                <i class="glyphicon glyphicon-apple"></i>
+                                            </div>
+                                            <a href="#" class="small-box-footer">Liste cliquer en haut à droite<i class="glyphicon glyphicon-tree-deciduous"></i></a>
+                                        </div>
+                                    </div>
+                                    <!-- ./col -->
+
+                                </div>
+                                <!-- /.row -->
+
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+
+                                            <h3 class="box-title">Exemple d'édition de jardin</h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <img src="/media/img/jardino.png" id="pot" width="100%" height="100%" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                 
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                      <h6 style="float:right;color:blue;font-size:18px;font-weight:bold;"> Année</h6> 
+                                    </div>
+                              <div class="col-sm-3">
+							                             
+								<select id="jaran"><option></option></select>                                                           
+                                    </div>
+                                    
+                                    <div class="col-sm-5">
+										
+                                      <a id="changan" class="btn btn-primary btn-lg">Changer d'année</a>   
+                                                          
+                                     </div>
+                                                      
+                                              <img src="/media/symb/gardener.png" id="gardener"/>
+                                         <div class="row">
+                                           <div class="col-sm-3">                              
+                                             <h4>jardinier(s)</h4>
+                                             </div>
+                                             <div class="col-sm-6">  
+                                            <input id="jardinier" type="text" class="form-control" value="" />   
+                                            </div>                        
+                                            <div class="col-sm-3">  
+                                             <a id="newjardinier" class="btn btn-primary">Modifier</a>  
+                                            </div>
+                                   </div>
+                                </div>
+											  <video width="300" height="240" controls src="/tutopengarden/tutog1.avi">		  
+											  </video> 
+                                       
+                                 <h4>Vergers<img src="/media/symb/plant.gif" id="smil3"/></h4>   
+                                
+                               <h6> A la première utilisation  définir les <span style="color:blue">dimensions </span> du ou des jardins.
+									Ensuite positionner les structures fixes : les <span style="color:blue">arbres fruitiers </span> et les <span style="color:blue">allées. </span>
+									Penser à enregistrer chaque élément avec les boutons prévus à cet effet dans chaque écran. Ces structures apparaitont lorsque l'application sera relancée.</h6>
+
+                                <h4>Potagers <img src="/media/symb/smil1.gif" id="smil1"/></h4>
+                                <h6> Cliquer sur <span style="color:blue; font-size:25px;">+</span> puis dessiner une parcelle avec la souris et la nommer.
+									Selectionner un ou des légumes et le nombre de rangs sur les panneaux de droite.
+									Renseigner les dates de semis, plantation et récolte probables puis plus tard réalisées.
+									Faire de même pour la periode 2 avant d' <span style="color:blue">enregistrer </span> la parcelle. </h6>
+                                  
+                               <h4>Quitter et reprendre <img src="/media/symb/smil2.gif" id="smil2"/></h4>
+                                <h6> Avant de quitter l'application, on peut <span style="color:blue;">Sauvegarder</span> le projet dans un fichier et le réutiliser en cliquant sur <span style="color:blue;">Choisissez un fichier</span> dans la barre du haut.
+									 Le fichier sera également sauvegardé sur le serveur et pourra être utilisé à la prochaine connexion
+									en cliquant sur le bouton <span style="color:blue;">Reprendre</span> dans la barre du haut également</h6>
+                                
+                            </div>
+                        </div>
+
+                        <div class="box box-solid box-primary">
+                            <div class="box-header">
+                                <h3 class="box-title">Icones des fruits et légumes utilisables</h3>
+                                <div class="box-tools pull-right">
+                                    <button class="btn btn-box-tool" data-widget="collapse">
+                                        <i class="glyphicon glyphicon-resize-vertical"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="box-body">
+                                <img src="/media/veg/aucun.png" id="aucun" title="à définir" class="tip" width="50px" />
+                                <img src="/media/veg/artich.png" id="artich" title="artichaud" class="tip" />
+                                <img src="/media/veg/asperg.png" id="asperg" title="asperges" class="tip" />
+                                <img src="/media/veg/auber.png" id="auber" title="aubergines" class="tip" />
+                                <img src="/media/veg/betrav.png" id="betrav" title="betteraves" class="tip" />
+                                <img src="/media/veg/chard.png" id="chard" title="bettes" class="tip" />
+                                <img src="/media/veg/carot.png" id="carot" title="carottes" class="tip" />
+                                <img src="/media/veg/celeriac.png" id="celeriac" title="celeris" class="tip" />
+                                <img src="/media/veg/chou.png" id="chou" title="choux" class="tip" />
+                                <img src="/media/veg/conc.png" id="conc" title="concombres" class="tip" />
+                                <img src="/media/veg/courg.png" id="courg" title="courgettes" class="tip" />
+                                <img src="/media/veg/endiv.png" id="endiv" title="endives" class="tip" />
+                                <img src="/media/veg/fennel.png" id="fennel" title="fenouils" class="tip" />
+                                <img src="/media/veg/feve.png" id="feve" title="feves" class="tip" />
+                                <img src="/media/veg/fraise.png" id="fraise" title="fraises" class="tip" />
+                                <img src="/media/veg/framb.png" id="framb" title="framboises" class="tip" />
+                                <img src="/media/veg/bean.png" id="bean" title="haricots_grains" class="tip" />
+                                <img src="/media/veg/haricov.png" id="haricov" title="haricots_verts" class="tip" />
+                                <img src="/media/veg/epima.png" id="epima" title="mais" class="tip" />
+                                <img src="/media/veg/onion.png" id="onion" title="oignons" class="tip" />
+                                <img src="/media/veg/panais.png" id="panais" title="panais" class="tip" />
+                                <img src="/media/veg/leek.png" id="leek" title="poireaux" class="tip" />
+                                <img src="/media/veg/pois.png" id="pois" title="pois" class="tip" />
+                                <img src="/media/veg/pepper.png" id="pepper" title="poivrons" class="tip" />
+                                <img src="/media/veg/potato.png" id="potato" title="pomme de terre" class="tip" />
+                                <img src="/media/veg/pum.png" id="pum" title="potirons" class="tip" />
+                                <img src="/media/veg/radis.png" id="radis" title="radis" class="tip" />
+                                <img src="/media/veg/salad.png" id="salad" title="salades" class="tip" />
+                                <img src="/media/veg/tomat.png" id="tomat" title="tomates" class="tip" />
+                                <img src="/media/veg/turnip.png" id="turnip" title="navets" class="tip" />
+                                <img src="/media/veg/spin.png" id="spin" title="epinards" class="tip" />
+                                <img src="/media/veg/mache.png" id="mache" title="maches" class="tip" />
+                                <img src="/media/veg/pineapple.png" id="pineapple" title="ananas" class="tip" />
+                                <img src="/media/veg/taro.png" id="taro" title="songe" class="tip" />
+                                <img src="/media/veg/melon.png" id="melon" title="melon" class="tip" width="40px" />
+                                <img src="/media/fruit/tree_apple.png" id="apple" title="pommier" class="tip" />
+                                <img src="/media/fruit/tree_apricot.png" id="apricot" title="abricotier" class="tip" />
+                                <img src="/media/fruit/tree_cherry.png" id="cherry" title="cerisier" class="tip" />
+                                <img src="/media/fruit/tree_pear.png" id="pear" title="poirier" class="tip" />
+                                <img src="/media/fruit/tree_plum.png" id="plum" title="poirier" class="tip" />
+                                <img src="/media/fruit/tree_peach.png" id="peach" title="pêcher" class="tip" />
+                                <img src="/media/fruit/tree_rubarb.png" id="rubarb" title="rhubarbe" class="tip" />
+                                <img src="/media/fruit/tree_gb.png" id="gb" title="groseiller" class="tip" />
+                                <img src="/media/fruit/tree_maracuja.png" id="maracuja" title="fruit de la passion" class="tip" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- debut de dimensions-->
+                    <div role="tabpanel" class="tab-pane" id="shiny-tab-dimnom">
+                        <div class="well">
+                            <h2>Création du jardin ou modification du nom ou des dimensions des jardins :</h2>
+                            <h5>Pour creer un ou des jardins, remplir noms et dimensions et sauvegarder avant de reprendre
+								le fichier.</h5>
+							<h5>Attention en cas de modification d'un jardin existant: avant de changer  la longueur ou la largeur ,
+								réorganiser les parcelles de celui-ci pour qu'elles rentrent dans le cadre
+								défini par les nouvelles dimensions.</h5>
+								 <h5>Sauvegarder le jardin avec les changements et attendre que
+								le jardinier se remette à ratisser.</h5>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-2">
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">1er jardin</h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+											 <div class="form-group shiny-input-container">
+                                                <label for="jar1nom">Nom :</label>
+                                                <input id="jar1nom" type="text" class="form-control" value="" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label for="larg1">Largeur en mètres :</label>
+                                                <input id="larg1" type="number" class="form-control" value="1" min="1" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label for="long1">Longeur en mètres :</label>
+                                                <input id="long1" type="number" class="form-control" value="1" min="1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">2ème jardin</h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+											 <div class="form-group shiny-input-container">
+                                                <label for="jarZnom">Nom :</label>
+                                                <input id="jar2nom" type="text" class="form-control" value="" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label for="larg2">Largeur en mètres :</label>
+                                                <input id="larg2" type="number" class="form-control" value="1" min="1" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label for="long2">Longeur en mètres :</label>
+                                                <input id="long2" type="number" class="form-control" value="1" min="1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">3ème jardin</h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+											 <div class="form-group shiny-input-container">
+                                                <label for="jar3nom">Nom :</label>
+                                                <input id="jar3nom" type="text" class="form-control" value="" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label for="larg3">Largeur en mètres :</label>
+                                                <input id="larg3" type="number" class="form-control" value="1" min="1" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label for="long3">Longeur en mètres :</label>
+                                                <input id="long3" type="number" class="form-control" value="1" min="1" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                 <h4><form>
+								Pixels par m²:
+							  <input type="number" id="caropix"  min="1" max="1000" step="1" value="40">
+							</form></h4>
+								   </br>
+                                   </br>
+								<a id="dimactu" class="btn btn-default shiny-download-link perso perso-primary"> <i class="glyphicon glyphicon-download-alt"></i> SAUVEGARDER </a>
+                                   </br>
+                                   </br>
+                                   </br>
+                                   </br>
+                                        <img src="/media/symb/ratisser.gif" id="gardim"/>
+                                    </div>
+                            
+                        </div>
+                    </div>
+                     <!-- debut de potagers-->
+                    <div role="tabpanel" class="tab-pane" id="shiny-tab-jardins">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="col-sm-">
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#tab-6734-1" data-toggle="tab" data-value="&lt;h5&gt;1er jardin&lt;/h5&gt;">
+                                                    <h5 id="jar1perso">jardin perso</h5></a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-6734-2" data-toggle="tab" data-value="&lt;h5&gt;2ème jardin&lt;/h5&gt;">
+                                                    <h5 id="jar2perso">2ème jardin</h5> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-6734-3" data-toggle="tab" data-value="&lt;h5&gt;3ème jardin&lt;/h5&gt;">
+                                                    <h5 id="jar3perso">3ème jardin</h5> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-6734-4" data-toggle="tab" data-value="&lt;h5&gt;Editions&lt;/h5&gt;">
+                                                    <h5>Boite à outils</h5> </a>
+                                            </li>
+                                                 <li>
+                                                <a href="#tab-6734-5" data-toggle="tab" data-value="&lt;h5&gt;Aides potagers&lt;/h5&gt;">
+                                                    <h5>Aide potagers</h5></a>
+                                            </li>
+                                            
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" data-value="&lt;h5&gt;1er jardin&lt;/h5&gt;" id="tab-6734-1">
+                                                <div class="col-sm-">
+                                                    <div class="nav-tabs-custom">
+                                                        <ul class="nav nav-tabs pull-right">
+                                                            
+                                                            <li>
+                                                                <a href="#tab-4755-2" data-toggle="tab" data-value="&lt;h6&gt;2ème cultures&lt;/h6&gt;">
+                                                                    <h6>2èmes cultures</h6> </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="#tab-4755-3" data-toggle="tab" data-value="&lt;h6&gt;1ère cultures et infos&lt;/h6&gt;">
+                                                                    <h6>1ères cultures et infos</h6> </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                         
+                                                            <div class="tab-pane" data-value="&lt;h6&gt;2ème période&lt;/h6&gt;" id="tab-4755-2">
+                                                                <canvas id="can1b" style="border:3px solid #0000ff"></canvas>
+                                                            </div>
+                                                            <div class="tab-pane active" data-value="&lt;h6&gt;1ère période mise en place&lt;/h6&gt;" id="tab-4755-3">
+                                                                
+                                                                <div class="row">
+																	
+                                                                    <div class="col-sm-11">
+																		<canvas id="can1a" style="border:3px solid #0000ff"></canvas>
+																	</div>
+																	
+																	<div class="col-sm-1">	
+																	<button type="button" class="btn btn-success" id="create1" data-toggle="tooltip"
+																	title="Ajouter une parcelle.">
+																					  <span class="glyphicon glyphicon-plus"></span>
+																   </button>
+                                                                    
+                                                                   
+																		 <button type="button" class="btn btn-info" id="rename1" data-toggle="tooltip"
+																		  title="Renommer une parcelle.">
+																	  <span class="glyphicon glyphicon-tag"></span>
+																   </button>
+                                                                 
+																		 <button type="button" class="btn btn-warning" id="save1"data-toggle="tooltip"
+																	title="Enregistrer une parcelle, la selectionner.">
+																	  <span class="glyphicon glyphicon-save"></span>
+																   </button>
+                                                                   
+																  <button type="button" class="btn btn-danger" id="del1"data-toggle="tooltip"
+																	title="Supprimer une parcelle.">
+																	  <span class="glyphicon glyphicon-trash"></span>
+																   </button>																	
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-sm-5">
+                                                                        <h5 style="color:blue;font-weight:bold;"><div id="parselh" class="shiny-text-output"></div></h5>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" data-value="&lt;h5&gt;2ème jardin&lt;/h5&gt;" id="tab-6734-2">
+                                                <div class="col-sm-">
+                                                    <div class="nav-tabs-custom">
+                                                        <ul class="nav nav-tabs pull-right">
+
+                                                            <li>
+                                                                <a href="#tab-9674-2" data-toggle="tab" data-value="&lt;h6&gt;2ème période&lt;/h6&gt;">
+                                                                    <h6>2èmes cultures</h6> </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="#tab-9674-3" data-toggle="tab" data-value="&lt;h6&gt;1ère période mise en place&lt;/h6&gt;">
+                                                                    <h6>1ères cultures et infos</h6> </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane" data-value="&lt;h6&gt;Archives&lt;/h6&gt;" id="tab-9674-1">
+                                                                <div class="row">
+                                                                    <div class="col-sm-1">
+                                                                        <div id="anm" class="form-group shiny-input-radiogroup shiny-input-container">
+                                                                            <label class="control-label" for="anm"></label>
+                                                                           
+                                                                        </div>
+                                                                    </div>
+                                                                    <div class="col-sm-8">
+                                                                        <div id="jaromil" class="shiny-plot-output" style="width: 700px ; height: 850px"></div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" data-value="&lt;h6&gt;2ème période&lt;/h6&gt;" id="tab-9674-2">
+                                                                <canvas id="can2b" style="border:3px solid #0000ff"></canvas>
+                                                            </div>
+                                                            <div class="tab-pane active" data-value="&lt;h6&gt;1ère période mise en place&lt;/h6&gt;" id="tab-9674-3">
+                                                                <div class="row">
+                                                                    <div class="col-sm-11">
+																	<canvas id="can2a" style="border:3px solid #0000ff"></canvas>	
+																</div>
+                                                                    
+                                                                    <div class="col-sm-1">
+																	<button type="button" class="btn btn-success" id="create2" data-toggle="tooltip"
+																	title="Ajouter une parcelle.">
+																					  <span class="glyphicon glyphicon-plus"></span>
+																   </button>
+                                                                  
+																		 <button type="button" class="btn btn-info" id="rename2" data-toggle="tooltip"
+																		  title="Renommer une parcelle.">
+																	  <span class="glyphicon glyphicon-tag"></span>
+																   </button>
+                                                                   
+																		 <button type="button" class="btn btn-warning" id="save2"data-toggle="tooltip"
+																	title="Enregistrer une parcelle.">
+																	  <span class="glyphicon glyphicon-save"></span>
+																   </button>
+                                                                   
+																  <button type="button" class="btn btn-danger" id="del2"data-toggle="tooltip"
+																	title="Supprimer une parcelle.">
+																	  <span class="glyphicon glyphicon-trash"></span>
+																   </button>																	
+                                                                    </div>
+                                                                    <div class="col-sm-4">
+                                                                        <div id="parselm" class="shiny-text-output"></div>
+                                                                    </div>
+                                                                </div>
+                                                                
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" data-value="&lt;h5&gt;3ème jardin&lt;/h5&gt;" id="tab-6734-3">
+                                                <div class="col-sm-">
+                                                    <div class="nav-tabs-custom">
+                                                        <ul class="nav nav-tabs pull-right">
+                                                       
+                                                            <li>
+                                                                <a href="#tab-2979-2" data-toggle="tab" data-value="&lt;h6&gt;2ème période&lt;/h6&gt;">
+                                                                    <h6>2èmes cultures</h6> </a>
+                                                            </li>
+                                                            <li class="active">
+                                                                <a href="#tab-2979-3" data-toggle="tab" data-value="&lt;h6&gt;1ère période mise en place&lt;/h6&gt;">
+                                                                    <h6>1ères cultures et infos</h6> </a>
+                                                            </li>
+                                                        </ul>
+                                                        <div class="tab-content">
+                                                            <div class="tab-pane" data-value="&lt;h6&gt;Archives&lt;/h6&gt;" id="tab-2979-1">
+                                                                <div class="row">
+                                                                   
+                                                    
+                                                                </div>
+                                                            </div>
+                                                            <div class="tab-pane" data-value="&lt;h6&gt;2ème période&lt;/h6&gt;" id="tab-2979-2">
+                                                                <canvas id="can3b" style="border:3px solid #0000ff"></canvas>
+                                                            </div>
+                                                            <div class="tab-pane active" data-value="&lt;h6&gt;1ère période mise en place&lt;/h6&gt;" id="tab-2979-3">
+                                                                <div class="row">
+                                                                    <div class="col-sm-11">
+																		 <canvas id="can3a" style="border:3px solid #0000ff"></canvas>
+																		</div>
+                                                                    
+                                                                        <div class="col-sm-1">
+																	<button type="button" class="btn btn-success" id="create3" data-toggle="tooltip"
+																	title="Ajouter une parcelle">
+																	<span class="glyphicon glyphicon-plus"></span>
+																   </button>
+                                                                    
+																		 <button type="button" class="btn btn-info" id="rename3" data-toggle="tooltip"
+																		  title="Renommer une parcelle.">
+																	  <span class="glyphicon glyphicon-tag"></span>
+																   </button>
+                                                                   
+																		 <button type="button" class="btn btn-warning" id="save3"data-toggle="tooltip"
+																	title="Enregistrer une parcelle.">
+																	  <span class="glyphicon glyphicon-save"></span>
+																   </button>
+                                                                   
+																  <button type="button" class="btn btn-danger" id="del3"data-toggle="tooltip"
+																	title="Supprimer une parcelle.">
+																	  <span class="glyphicon glyphicon-trash"></span>
+																   </button>																	
+                                                                    </div>
+                                                                    
+                                                                    <div class="col-sm-4">
+                                                                        <div id="parselb" class="shiny-text-output"></div>
+                                                                    </div>
+                                                                   
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" data-value="&lt;h5&gt;Editions&lt;/h5&gt;" id="tab-6734-4">
+                             
+                                                        <div>
+                                                            <div class="box box-solid box-primary">
+                                                                <div class="box-header">
+                                                                    <h3 class="box-title">Choisir la couleur de fond des jardins :</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button class="btn btn-box-tool" data-widget="collapse">
+                                                                            <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <h4> Couleur -&gt;
+																		<input type="color" id="col" value="#efeef2"/>
+																		<input type="button" id="gocol" value="appliquer cette couleur de fond à tous les jardins"/>
+																		</h4>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    
+                                                        <div>
+                                                            <div class="box box-solid box-primary">
+                                                                <div class="box-header">
+                                                                    <h3 class="box-title">Sauvegarder une photo d'un jardin :</h3>
+                                                                    <div class="box-tools pull-right">
+                                                                        <button class="btn btn-box-tool" data-widget="collapse">
+                                                                            <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="box-body">
+                                                                    <em>Le fond est transparent par défaut... possibilité de choisir une couleur avant de sauvegarder.</em>
+                                                                    <br/>
+																		<br/>
+                                                                     
+                                                                 <div class="row">
+                                                                    <div class="col-sm-3">
+                                                                    <input type="button" id="png_1" value="Image du 1er jardin" />
+                                                                    </div>
+                                                                    <div class="col-sm-3">
+                                                                    <input type="button" id="png_2" value="Image du 2ème jardin" />
+                                                                   </div>
+                                                                    <div class="col-sm-3">
+                                                                    <input type="button" id="png_3" value="Image du 3ème jardin" />
+																		</div>
+                                                                   </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                               <div class="box box-solid box-primary">
+																				<div class="box-header">
+																					<h3 class="box-title">Initialiser ici une nouvelle campagne.</h3>
+																					<div class="box-tools pull-right">
+																						<button class="btn btn-box-tool" data-widget="collapse">
+																							<i class="glyphicon glyphicon-resize-vertical"></i>
+																						</button>
+																					</div>
+																				</div>
+                                                                <div class="box-body">
+                                                                    <em>Les boutons ci-dessous permettent d'ajouter ou d'enlever des années au fichier en cours.
+                                                                    On peut ajouter une année en dupliquant l'ensemble de la dernière année ou bien seulement les allées et les arbres.
+                                                                    Si on supprime une année, les données en seront définitivement perdues. Il est prudent de faire une sauvegarde auparavant.
+                                                                    L'année la plus réente apparaitra par défault en premier lors du rappel du fichier jardin.</em>
+                                                                    <br/>
+																		<br/>
+                                                                     
+                                                                           <div class="row">
+																							<div class="col-sm-4">
+																							<input type="button" id="ajoutan1" value="Dupliquer la dernière année intégralement" />
+																							</div>
+                                                                                          <div class="col-sm-4">
+																							<input type="button" id="ajoutan2" value="Dupliquer allées et arbres seulement." />
+																							</div>
+
+																						<div class="col-sm-2">
+																						<input type="button" id="otan" value="Supprimer l'année ->" />
+																					   </div>
+															                           <div class="col-sm-2">						 
+																							<select id="supan"></select>                                                           
+																								</div>
+                                                             
+                                                                            </div>
+                                                                 </div>
+													       </div>
+
+                                                           <img src="/media/img/pot.jpg" id="pot" width="100%" height="100%" />
+                                                    </div>
+
+
+									 <div class="tab-pane" data-value="&lt;h5&gt;aide potagers&lt;/h5&gt;" id="tab-6734-5">
+
+									<div class="row">
+									<section class="col-sm-12 table-responsive">
+									  <table class="table table-bordered table-striped table-condensed">
+										<caption>
+										<h4>Construire et modifier les potagers</h4>
+										</caption>
+										<thead>
+										  <tr>
+											<th>Boutons</th>
+											<th>Actions</th>
+										  </tr>
+										</thead>
+										<tbody>
+										  <tr>
+											<td><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></td>
+											<td><h6 style="font-size:15px;">Pour ajouter une parcelle, cliquer sur ce bouton puis dessiner dans le jardin un rectangle avec la souris.
+											 La selectionner puis ajouter les informations sur les panneaux de droite.</h6><h6 style="font-size:15px;">
+											  Enfin enregistrer en cliquant sur <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span></h6></td>
+										  </tr>
+										  <tr>
+											   <td><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-tag"></span></td>
+											<td><h6 style="font-size:15px;">Pour renommer une parcelle, après l'avoir sélectionnée,
+											 cliquer sur ce bouton et suivre les instructions pour en modifier l'identifiant.</h6></td>
+										  </tr>
+										<tr>
+										  <td><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span></td>
+											<td><h6 style="font-size:15px;">Pour enregistrer une parcelle, la selectionner,
+											remplir les panneaux de droite puis cliquer sur ce bouton.</h6></td>
+										  </tr>
+										  <tr>
+											<td><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></td>
+											<td><h6 style="font-size:15px;">Pour supprimer une parcelle, la selectionner puis cliquer sur ce bouton.</h6></td>
+										  </tr>
+										</tbody>
+									  </table>
+									</div>
+																   
+                                             </div>	
+                                                             
+											</div>
+											
+                                     </div>
+                                </div>
+                            </div>
+                            
+                            <div class="col-sm-2">
+                                <div id="parsel" class="shiny-text-output"></div>
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title"><i class="fa fa-navicon fa-1x"></i> Nbre de rangs </h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group shiny-input-container">
+                                                <label>1ère culture</label>
+                                                <input id="rang1" type="number" class="form-control" value="1" min="0" />
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <label>2ème culture</label>
+                                                <input id="rang2" type="number" class="form-control" value="1" min="0" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">Légumes</h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <h4>1ère cultures</h4>
+                                                <div>
+                                                    <select id="legum1" multiple="multiple"></select>
+                                                </div>
+                                            </div>
+                                            <div class="form-group shiny-input-container">
+                                                <h4>2ème cultures</h4>
+                                                <div>
+                                                    <select id="legum2" multiple="multiple"></select>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title"><i class="fa fa-calendar fa-1x"></i> 1ère culture </h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label class="control-label">Semis</label>
+                                                <input type="text" id="sem1" data-provide="datepicker" class="datepicker">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Plantation</label>
+                                                <input type="text" id="plant1" data-provide="datepicker" class="datepicker" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Début récole</label>
+                                                <input type="text" id="rec1" data-provide="datepicker" class="datepicker" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Fin récole</label>
+                                                <input type="text" id="finrec1" data-provide="datepicker" class="datepicker" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title"><i class="fa fa-calendar fa-1x"></i> 2ème culture </h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <div class="form-group">
+                                                <label class="control-label">Semis</label>
+                                                <input type="text" id="sem2" data-provide="datepicker" class="datepicker">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Plantation</label>
+                                                <input type="text" id="plant2" data-provide="datepicker" class="datepicker" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Début récole</label>
+                                                <input type="text" id="rec2" data-provide="datepicker" class="datepicker" />
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="control-label">Fin récole</label>
+                                                <input type="text" id="finrec2" data-provide="datepicker" class="datepicker" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title"><i class="fa fa-gog fa-1x"></i> Commentaires </h3>
+                                            <div class="box-tools pull-right">
+                                                <button class="btn btn-box-tool" data-widget="collapse">
+                                                    <i class="glyphicon glyphicon-resize-vertical"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="box-body">
+                                            <h5>1ère culture</h5>
+                                            <textarea id="com1" rows="5" cols="12"></textarea>
+                                            <h5>2ème culture</h5>
+                                            <textarea id="com2" rows="2" cols="12">Com2</textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                     <!-- debut de planning-->
+                    <div role="tabpanel" class="tab-pane" id="shiny-tab-plan">
+                        <div class="row">
+                            <div class="col-sm-1">  
+								<select id="selegan"><option></option></select>     
+                            </div>
+                             <div class="col-sm-3">  
+							<button id="change_selegan">Graphique de l'année sélectionnée</button>    
+                            </div>
+                            
+                            
+                        </div>         
+                                   
+                                      <div id="planleg" class="shiny-html-output"> 
+                                      <svg id="svg"></svg>
+                                      </div>
+                    </div>
+                    
+                    <div role="tabpanel" class="tab-pane" id="og-tab-tab">
+						 <table cellpadding="0" cellspacing="0" border="0" class="display" id="tabParcel"></table>
+					</div> 
+					
+					 <div role="tabpanel" class="tab-pane" id="og-tab-legraf">
+						<h3>Mètres linéaires cumulés par légume et par an.</h3>
+						<div id='lonleg'>
+                        <svg style='height:1000px;width:1000px'> </svg>
+                        </div> 
+					</div> 
+                      <div role="tabpanel" class="tab-pane" id="og-tab-arbres">
+						 <table cellpadding="0" cellspacing="0" border="0" class="display" id="tabArbres"></table>
+					</div> 
+
+                     
+                    <div role="tabpanel" class="tab-pane" id="shiny-tab-struc">
+                        <div class="row">
+                            <div class="col-sm-10">
+                                <div class="col-sm-">
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#tab-5538-1" data-toggle="tab" data-value="&lt;h5&gt;1er jardin&lt;/h5&gt;">
+                                                    <h5 id='verg1'>1er jardin</h5> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-5538-2" data-toggle="tab" data-value="&lt;h5&gt;2ème jardin&lt;/h5&gt;">
+                                                    <h5 id='verg2'>2ème jardin</h5> </a>
+                                            </li>
+                                            <li>
+                                                <a href="#tab-5538-3" data-toggle="tab" data-value="&lt;h5&gt;3ème jardin&lt;/h5&gt;">
+                                                    <h5 id='verg3'>3ème jardin</h5> </a>
+                                            </li>
+                                             <li>
+                                                <a href="#tab-5538-4" data-toggle="tab" data-value="&lt;h5&gt;aide vergers&lt;/h5&gt;">
+                                                    <h5>aide vergers</h5></a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" data-value="&lt;h5&gt;1er jardin&lt;/h5&gt;" id="tab-5538-1">
+                                                <div class="row">
+                                                           <div class="col-sm-11">   
+									                  <canvas id="can1c" style="border:3px solid #0000ff"></canvas>
+                                                             </div>
+                                                                  <div class="col-sm-1">
+																	<button type="button" class="btn btn-success" id="stradd_1" data-toggle="tooltip" data-placement="top" 
+																	title="Ajouter un arbre.">
+																					  <span class="glyphicon glyphicon-cloud-upload"></span>
+																   </button>
+                                                                    
+																		 <button type="button" class="btn btn-primary" id="jaral_1" data-toggle="tooltip" data-placement="top" 
+																		  title="Ajouter une allée.">
+																	  <span class="glyphicon glyphicon-sort"></span>
+																   </button>
+                                                                  
+																		 <button type="button" class="btn btn-warning" id="strurec_1" data-toggle="tooltip"
+																	title="Enregistrer un arbre ou une allée.">
+																	  <span class="glyphicon glyphicon-save"></span>
+																   </button>
+                                                                  
+																  <button type="button" class="btn btn-danger" id="strudel_1" data-toggle="tooltip"
+																	title="Supprimer un arbre ou une allée.">
+																	  <span class="glyphicon glyphicon-trash"></span>
+																   </button>
+																   																	
+                                                                    </div>
+                                                        </div>                                  
+                                                  </div>
+                                            <div class="tab-pane" data-value="&lt;h5&gt;2ème jardin&lt;/h5&gt;" id="tab-5538-2">
+                                                <div class="row">
+													   <div class="col-sm-11">
+													 <canvas id="can2c" style="border:3px solid #0000ff"></canvas>
+													   </div>
+                                                      <div class="col-sm-1">
+																	<button type="button" class="btn btn-success" id="stradd_2" data-toggle="tooltip"
+																	title="Ajouter un arbre.">
+																	<span class="glyphicon glyphicon-cloud-upload"></span>
+																   </button>
+                                                                  
+                                                                    
+																	<button type="button" class="btn btn-primary" id="jaral_2" data-toggle="tooltip"
+																	title="Ajouter une allée.">
+																	  <span class="glyphicon glyphicon-sort"></span>
+																   </button>
+                                                                   
+																	<button type="button" class="btn btn-warning" id="strurec_2" data-toggle="tooltip"
+																	title="Enregistrer un arbre ou une allée.">
+																	  <span class="glyphicon glyphicon-save"></span>
+																   </button>
+                                                                 
+																  <button type="button" class="btn btn-danger" id="strudel_2" data-toggle="tooltip"
+																	title="Supprimer un arbre ou une allée.">
+																	  <span class="glyphicon glyphicon-trash"></span>
+																   </button>																	
+                                                             </div>
+
+                                                </div>
+                                            </div>
+                                            <div class="tab-pane" data-value="&lt;h5&gt;3ème jardin&lt;/h5&gt;" id="tab-5538-3">
+                                                <div class="row">
+                                                   <div class="col-sm-11">
+													   <canvas id="can3c" style="border:3px solid #0000ff"></canvas>
+													   </div>
+													      <div class="col-sm-1">
+																	<button type="button" class="btn btn-success" id="stradd_3" data-toggle="tooltip"
+																	title="Ajouter un arbre.">
+																 <span class="glyphicon glyphicon-cloud-upload"></span>
+																   </button>   
+                                                                 
+																		 <button type="button" class="btn btn-primary" id="jaral_3" data-toggle="tooltip"
+																		  title="Ajouter une allée.">
+																	  <span class="glyphicon glyphicon-sort"></span>
+																   </button>
+
+																		 <button type="button" class="btn btn-warning" id="strurec_3" data-toggle="tooltip"
+																	title="Enregistrer un arbre ou une allée.">
+																	  <span class="glyphicon glyphicon-save"></span>
+																   </button>
+
+																  <button type="button" class="btn btn-danger" id="strudel_3" data-toggle="tooltip"
+																	title="Supprimer un arbre ou une allée.">
+																	  <span class="glyphicon glyphicon-trash"></span>
+																   </button>																	
+                                                                  </div>
+
+                                                        </div>
+                                                </div>
+
+                                             <div class="tab-pane" data-value="&lt;h5&gt;aide vergers&lt;/h5&gt;" id="tab-5538-4">
+
+
+        <div class="row">
+        <section class="col-sm-12 table-responsive">
+          <table class="table table-bordered table-striped table-condensed">
+            <caption>
+            <h4>Construire et modifier les vergers et les allées.</h4>
+            </caption>
+            <thead>
+              <tr>
+                <th>Boutons</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-cloud-upload"></span></td>
+                <td><h6 style="font-size:15px;">Pour ajouter un arbre, cliquer sur ce bouton puis indiquer son emplacement en cliquant sur le plan.
+                 Apparait alors un cercle que l'on peut repositionner. Le selectionner, ajouter les informations le concernant sur
+                 le panneau de droite: selectionner l'espèce, indiquer la variété, définir sa taille, son année de plantation,
+                 et mettre eventuellement un commentaire.</h6><h6 style="font-size:15px;">
+                  Enfin enregistrer en cliquant sur <button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span></h6></td>
+              </tr>
+              <tr>
+                   <td><button type="button" class="btn btn-success"><span class="glyphicon glyphicon-sort"></span></td>
+                <td><h6 style="font-size:15px;">Pour ajouter une allée cliquer sur ce bouton puis dessiner un segment qui apparaitra rouge. On ne
+                peut pas repositionner ce segment une fois dessiné. S'il est mal placé, le supprimer et en faire un autre.
+					Pour enregistrer l'allée, selectionner le segment rouge et cliquer sur
+					<button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span></h6></td>
+              </tr>
+            <tr>
+              <td><button type="button" class="btn btn-warning"><span class="glyphicon glyphicon-save"></span></td>
+                <td><h6 style="font-size:15px;">Pour enregistrer un arbre ou une allée le ou la selectionner et cliquer sur ce bouton.</h6></td>
+              </tr>
+              <tr>
+                <td><button type="button" class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></td>
+                <td><h6 style="font-size:15px;">Pour supprimer un arbre ou une allée le ou la selectionner puis cliquer sur ce bouton.</h6></td>
+              </tr>
+               <tr>
+                <td> </td>
+                <td><h6 style="font-size:15px;color:blue;">Les arbres et allées n'apparaitront dans le potager que la prochaine fois que l'application sera relancée. </h6></td>
+			   </tr>
+             
+            </tbody>
+          </table>
+        </div>
+
+
+
+													   
+                                             </div>	
+ 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-2">
+                                <div class="form-group shiny-input-container">
+                                    <label class="control-label" for="esp">Espèce</label>
+                                    <div>
+                                        <select id="esp">
+                                            <option value="1" selected>pommier</option>
+                                            <option value="2">abricotier</option>
+                                            <option value="3">cerisier</option>
+                                            <option value="4">poirier</option>
+                                            <option value="5">prunier</option>
+                                            <option value="6">pêcher</option>
+                                            <option value="7">rhubarbe</option>
+                                            <option value="8">groseiller</option>
+                                            <option value="9">fruit de la passion</option>
+                                        </select>
+                                        <script type="application/json" data-for="esp" data-nonempty="">
+                                            {}
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group shiny-input-container">
+                                    <label for="nom">nom</label>
+                                    <input id="nom" type="text" class="form-control" value="nom" />
+                                </div>
+                                <div class="form-group shiny-input-container">
+                                    <label class="control-label" for="size">Grosseur de l'icone</label>
+                                    <div>
+                                        <select id="size">
+                                            <option value="1" selected>petit</option>
+                                            <option value="1.2">moyen</option>
+                                            <option value="1.5">gros</option>
+                                            <option value="2">très gros</option>
+                                        </select>
+                                        <script type="application/json" data-for="size" data-nonempty="">
+                                            {}
+                                        </script>
+                                    </div>
+                                </div>
+                                <div class="form-group shiny-input-container">
+                                    <label for="plantan">Année de plantation</label>
+                                    <input id="plantan" type="text" class="form-control" value="2015" />
+                                </div>
+                                <h6 style="color:blue">Commentaires :</h6>
+                                <textarea id="comarb" rows="5" cols="12"></textarea>
+                            </div>
+                        </div>        
+                        				   
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <!-- To the right -->
+        <div class="pull-right hidden-xs">
+            <em>contact :</em><a href="mailto:jlr@reuillon.org">jlr@reuillon.org</a> 
+        </div>
+        <!-- Default to the left -->
+        <strong><div id="version"></div></strong>
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Create the tabs -->
+        <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+            <li class="active">
+                <a href="#control-sidebar-home-tab" data-toggle="tab"><i class="glyphicon glyphicon-th"></i></a>
+            </li>
+            <li>
+                <a href="#control-sidebar-legumes-tab" data-toggle="tab"><i class="glyphicon glyphicon-grain"></i></a>
+            </li>
+              <li>
+                <a href="#control-sidebar-arbres-tab" data-toggle="tab"><i class="glyphicon glyphicon-tree-deciduous"></i></a>
+            </li>
+            
+        </ul>
+      <!-- Tab panes -->
+        <div class="tab-content">
+            <!-- Home tab content -->
+            <div class="tab-pane active" id="control-sidebar-home-tab">
+                
+                <ul class="control-sidebar-menu">
+                    <li>                        
+                                <div role="tabpanel" class="tab-pane">
+						 <table cellpadding="0" cellspacing="0" border="0" class="display" id="nomdparcelles"></table>
+								</div> 
+                        
+                    </li>
+                </ul>
+                <!-- /.control-sidebar-menu -->
+
+                
+            </div>
+
+            <!-- legumes tab content -->
+            <div class="tab-pane" id="control-sidebar-legumes-tab">
+                <form method="post">
+                    
+                    <div role="tabpanel" class="tab-pane">
+						 <table cellpadding="0" cellspacing="0" border="0" class="display" id="metrelegumes"></table>
+								</div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+           <!-- arbrez tab content -->
+            <div class="tab-pane" id="control-sidebar-arbres-tab">
+                <form method="post">
+                    
+                    <div role="tabpanel" class="tab-pane">
+						 <table cellpadding="0" cellspacing="0" border="0" class="display" id="nbarbres"></table>
+								</div>
+                    <!-- /.form-group -->
+                </form>
+            </div>
+
+            
+            <!-- /.tab-pane -->
+        </div>
+    </aside>
+    <!-- /.control-sidebar -->
+    <!-- Add the sidebar's background. This div must be placed
+		immediately after the control sidebar -->
+    <div class="control-sidebar"></div>
+    </div>
+    <!-- ./wrapper -->
+
+    <!-- REQUIRED JS SCRIPTS -->
+
+    <!-- jQuery 2.1.4
+		<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+		-->
+		
+    <script src="/publifab/dist/js/jQuery.min.js" type="text/javascript"></script>
+    <script src="/publifab/dist/js/selectize.min.js" type="text/javascript"></script>
+    <script src="/publifab/dist/js/bootstrap-datepicker.min.js" type="text/javascript" charset="UTF-8"></script>
+    <script src="/publifab/alert/sweetalert.min.js" type="text/javascript"></script>
+    <script src="/publifab/alert/please-wait.min.js" type="text/javascript"></script>
+   
+    <!-- Bootstrap 3.3.2 JS -->
+    <script src="/publifab/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+    <!-- AdminLTE App -->
+    <script src="/publifab/dist/js/app.min.js" type="text/javascript"></script>
+
+    <script src="/publifab/dist/js/socket.io.js"></script>
+
+   <!-- DATA TABLES SCRIPT -->
+    <script src="/publifab/dist/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+    <script src="/publifab/plugins/datatables/dataTables.bootstrap.min.js" type="text/javascript"></script>
+    <!-- charts -->
+    <script src="/publifab/d3/d3.min.js" type="text/javascript">></script>
+    <script src="/publifab/d3/d3.v3.min.js" type="text/javascript">></script>
+    <script src="/publifab/d3/d3-timeline.js" type="text/javascript">></script>
+    <script src="/publifab/d3/nv.d3.js" type="text/javascript">></script>
+    <!--   -->
+    <script src="/publifab/plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+  
+    <script src="/publifab/plugins/fastclick/fastclick.min.js" type="text/javascript"></script>
+     <!--  -->
+    <script src="/publifab/fabric.min.js" type="text/javascript"></script>
+    <script src="/fabric/fabrijar1.js" type="text/javascript"></script>
+ 
+    <script type="text/javascript">
+        $.fn.datepicker.dates['fr'] = {
+            days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            daysShort: ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"],
+            daysMin: ["Di", "Lu", "Ma", "Me", "Je", "Ve", "Sa"],
+            months: ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"],
+            monthsShort: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+            today: "Aujourd'hui",
+            clear: "Effacer",
+            format: "dd/MM/yyyy",
+            titleFormat: "MM yyyy",
+            weekStart: 0
+        };
+
+        $('.datepicker').datepicker({
+            format: 'dd MM yyyy',
+            todayHighlight: true,
+            calendarWeeks: true,
+            clearBtn: true,
+            language: "fr",
+            autoclose: true
+        });
+        
+
+        
+    </script>
+
+</body>
+
+</html>

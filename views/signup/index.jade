@@ -1,0 +1,46 @@
+extends ../../layouts/default
+
+block head
+  title Sign Up
+
+block neck
+  link(rel='stylesheet', href='/views/signup/index.min.css?#{cacheBreaker}')
+
+block feet
+  script(src='/views/signup/index.min.js?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Ouvrez un compte
+      div#signup
+      
+    div.col-sm-6.marketing
+      div.page-header
+        h1 OpenGarden
+      p.lead Vous n'allez plus pouvoir vous en passer!
+      i.fa.fa-thumbs-o-up.super-awesome
+
+  script(type='text/template', id='tmpl-signup')
+    form
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+      div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
+        label Choisissez un pseudonyme:
+        input.form-control(type='text', name='username', value!='<%= username %>')
+        span.help-block <%- errfor.username %>
+      div.form-group(class!='<%- errfor.email ? "has-error" : "" %>')
+        label Entrez votre adresse e-mail:
+        input.form-control(type='text', name='email', value!='<%= email %>')
+        span.help-block <%- errfor.email %>
+      div.form-group(class!='<%- errfor.password ? "has-error" : "" %>')
+        label Créer un mot de passe:
+        input.form-control(type='password', name='password', value!='<%= password %>')
+        span.help-block <%- errfor.password %>
+      div.form-group
+        button.btn.btn-primary.btn-signup(type='button') Creer mon compte

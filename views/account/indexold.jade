@@ -1,0 +1,55 @@
+extends ../../layouts/account
+
+block head
+  title Page perso
+ 
+ 
+block neck
+  link(rel='stylesheet', href='/views/account/index.min.css?#{cacheBreaker}')
+
+block feet
+  script(src='/views/account/index.min.js?#{cacheBreaker}')
+  script(src="/socket.io/socket.io.js")
+  
+block body
+   
+  div.row
+        block content
+     div.col-sm-4  
+         br
+         img(src='/media/site/pot.jpg',style="width:100px;height:120x;")
+         a.btn.btn-info.btn-lg(href='/account/garden/',style='float:right;')   Plan de jardin
+         br
+         br
+         br
+         img(src='/media/site/fill.png',style="width:50px;height:50x;")
+         a.btn.btn-default.btn-lg(href='/account/settings/',style='float:right;' )   Compléter mon profil    
+         br
+         br 
+         br
+         img(src='/media/site/chat.png',style="width:50px;height:50x;")
+         a.btn.btn-info.btn-lg(href='/account/chat/',style='float:right;')   Aller sur le forum 
+         br
+         br   
+         br  
+         img(src='/media/site/archive.png',style="width:50px;height:50x;")
+         a.btn.btn-default.btn-lg( onclick="OpenChildWindow ();" ,style='float:right;')   Ajouter une photo        
+         br
+         #fotuser #{user.username}
+         br 
+         img(src='/media/site/gallery.png',style="width:60px;height:70x;")  
+         a.btn.btn-info.btn-lg(href='/account/gallery/',style='float:right;')   Accéder à la gallerie de photos
+         
+    div.row-sm-8.special
+        br
+        img(src='/media/site/jardin.png',style="width:600px;")
+    
+    script(type="text/javascript").
+     function OpenChildWindow () {
+            var fotuser = document.getElementById("fotuser").innerHTML;
+            console.log("fotuser ?????????"+fotuser);
+            var fotio = io.connect();
+            fotio.emit('foto_user', fotuser);
+            window.open ( '/views/account/fotos/index.html', "OpenerTest", "width=500, height=500");
+            }
+            

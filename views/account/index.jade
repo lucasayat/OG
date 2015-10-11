@@ -1,0 +1,43 @@
+extends ../../layouts/account
+
+block head
+  title Jardin
+
+block feet
+  script(src='/views/account/settings/index.min.js?#{cacheBreaker}')
+  
+block body
+   
+  div.row
+        block content
+     div.col-sm-4 
+         br
+         h3 Entrer dans l'application web.
+         br
+         img(src='/media/site/pot.jpg',style="width:100px;height:120x;")
+         a.btn.btn-info.btn-lg(onclick="OpenGarden();")    #{jaruser}
+         br
+         br 
+         | 
+         br
+         br
+         img(src='/media/site/fill.png',style="width:50px;height:50x;")
+         a.btn.btn-default.btn-lg(href='/account/settings/',style='float:left;' )   Compléter mes infos    
+         br
+         br  
+         
+    div.row-sm-12.special
+        br
+        img(src='/media/site/jardin.png')
+        br
+        em Pour utiliser l'application web ou locale voir le tutoriel "à propos ou en savoir plus de l'accueil."
+ 
+    
+    script(type="text/javascript").
+     function OpenGarden () { 
+        var urluser='!{jardinuser}';
+        var num = parseInt('!{alert}');
+        console.log("numero :"+num);
+        if(num === 0) {opengar = window.open (urluser,"_self");}else{alert("Plus d'application disponible.... réessayer plus tard");}
+        }; 
+       

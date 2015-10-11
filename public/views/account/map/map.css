@@ -1,0 +1,12 @@
+#map
+{ height: 800px;
+}
+.leaflet-popup-content
+ {
+  width : 150px;
+  font-size:15px;
+  font-weight:bold;
+  color:blue;
+  background-color:yellow;
+  text-align:center;
+ }

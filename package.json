@@ -1,0 +1,38 @@
+{
+  "name": "OpenGarden",
+  "version": "0.16.2",
+  "private": true,
+  "dependencies": {
+    "async": "^1.x.x",
+    "bcrypt": "^0.x.x",
+    "body-parser": "^1.x.x",
+    "compression": "^1.x.x",
+    "connect-mongo": "^0.x.x",
+    "cookie-parser": "^1.x.x",
+    "crypto": "^0.x.x",
+    "csurf": "^1.x.x",
+    "emailjs": "^1.x.x",
+    "express": "^4.x.x",
+    "express-session": "^1.x.x",
+    "fs-extra": "^0.x.x",
+    "helmet": "^0.x.x",
+    "jade": "^1.x.x",
+    "method-override": "^2.x.x",
+    "mongoose": "^4.x.x",
+    "morgan": "^1.x.x",
+    "passport": "^0.x.x",
+    "passport-local": "^1.x.x",
+    "quickthumb": "^0.x.x",
+    "serve-static": "^1.x.x",
+    "socket.io": "^1.x.x",
+    "underscore": "^1.x.x"
+  },
+  "devDependencies": {
+    "jquery": "^2.x.x",
+    "moment": "^2.x.x"
+  },
+  "description": "A website to organize a garden",
+  "main": "app.js",
+  "author": "JL REUILLON",
+  "license": "GPLv3"
+}

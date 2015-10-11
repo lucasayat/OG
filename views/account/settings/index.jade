@@ -1,0 +1,143 @@
+extends ../../../layouts/account
+
+block head
+  title profil
+  link(rel='stylesheet', href="http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.css")
+  link(rel='stylesheet', href="/views/account/map/map.css")
+  script(src='http://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.3/leaflet.js')
+block feet
+  script(src='/views/account/settings/index.js?#{cacheBreaker}')
+ 
+block body
+       
+  div.row
+    div.col-sm-4
+      h2 Profil personnel
+      div#details
+      div#identity
+      div#password
+    div.col-sm-8
+      h2 Géolocalisation
+      em Zoomer et cliquer sur la carte puis copier/coller ou recopier les coordonnées dans les champs latitude et longitude.
+      div#map
+     script(type="text/javascript").
+        var map = L.map('map').setView([47, 2], 6);
+         L.tileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {maxZoom: 18,
+         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+         }).addTo(map);
+         var popup = L.popup();
+         function onMapClick(e) {
+         popup
+        .setLatLng(e.latlng)
+        .setContent("Latitude "+""+ e.latlng.lat.toString()+"\n"+"Longitude "+" "+e.latlng.lng.toString())
+        .openOn(map);
+         }
+         map.on('click', onMapClick);
+          var greenIcon = L.icon({
+          iconUrl: '/media/mapicon/leaf-green.png',
+          shadowUrl: '/media/mapicon/leaf-shadow.png',
+          iconSize:     [38, 95], // size of the icon
+          shadowSize:   [50, 64], // size of the shadow
+          iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+           shadowAnchor: [4, 62],  // the same for the shadow
+           popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+           });
+           var latuser= '#{data.lat}';
+           var lnguser= '#{data.lng}';
+           L.marker([Number(latuser),Number(lnguser)], {icon: greenIcon}).addTo(map);
+           var essai='#{data.lng}'
+           console.log("lng jade:"+essai)
+           
+  script(type='text/template', id='tmpl-details')
+    fieldset
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          |<%- err %>
+        |<% }); %>
+        |<% if (success) { %>
+        div.alert.alert-info.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          | Changements sauvegardés.
+        |<% } %>
+      div.form-group(class!='<%- errfor.first ? "has-error" : "" %>')
+        label Prenom:
+        input.form-control(type='text', name='first', value!='<%- first %>')
+        span.help-block <%- errfor.first %>
+      div.form-group(class!='<%- errfor.last ? "has-error" : "" %>')
+        label Nom:
+        input.form-control(type='text', name='last', value!='<%- last %>')
+        span.help-block <%- errfor['last'] %>     
+      div.form-group(class!='<%- errfor.phone ? "has-error" : "" %>')
+        label N° de téléphone:
+        input.form-control(type='text', name='phone', value!='<%- phone %>')
+        span.help-block <%- errfor.phone %>
+      div.form-group(class!='<%- errfor.zip ? "has-error" : "" %>')
+        label Adresse postale:
+        input.form-control(type='text', name='zip', value!='<%- zip %>')
+        span.help-block <%- errfor.zip %>
+       div.form-group
+      div.form-group(class!='<%- errfor.lat ? "has-error" : "" %>')
+        label Localisation du jardin (latitude):
+        input.form-control(type='text', name='lat', value!='<%- lat %>')
+        span.help-block <%- errfor.lat %>
+        div.form-group(class!='<%- errfor.lng ? "has-error" : "" %>')
+        label Localisation du jardin (longitude):
+        input.form-control(type='text', name='lng', value!='<%- lng %>')
+        span.help-block <%- errfor.lng %>        
+      div.form-group
+        button.btn.btn-primary.btn-update(type='button') Enregistrer
+
+  script(type='text/template', id='tmpl-identity')
+    fieldset
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+        |<% if (success) { %>
+        div.alert.alert-info.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          | Changements sauvegardés.
+        |<% } %>
+      div.form-group(class!='<%- errfor.username ? "has-error" : "" %>')
+        label Pour changer de peudo faire une demande (Contact).
+        input.form-control(type='text', name='username', value!='<%= username %>')
+        span.help-block <%- errfor.username %>
+      div.form-group(class!='<%- errfor.email ? "has-error" : "" %>')
+        label E-mail:
+        input.form-control(type='text', name='email', value!='<%= email %>')
+        span.help-block <%- errfor.email %>
+      div.form-group
+        button.btn.btn-primary.btn-update(type='button') Enregistrer
+
+  script(type='text/template', id='tmpl-password')
+    fieldset
+      legend Mot de passe
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger.alert-dismissable
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+      |<% if (success) { %>
+      div.alert.alert-info.alert-dismissable
+        button.close(type='button', data-dismiss='alert') &times;
+        | Le nouveau mot de passe est enregistré.
+      |<% } %>
+      div.form-group(class!='<%- errfor.newPassword ? "has-error" : "" %>')
+        label Nouveau mot de passe:
+        input.form-control(type='password', name='newPassword', value!='<%= newPassword %>')
+        span.help-block <%- errfor.newPassword %>
+      div.form-group(class!='<%- errfor.confirm ? "has-error" : "" %>')
+        label Confirmez le mot de passe:
+        input.form-control(type='password', name='confirm', value!='<%= confirm %>')
+        span.help-block <%- errfor.confirm %>      
+      div.form-group
+        button.btn.btn-primary.btn-password(type='button') Enregistrer
+
+  script(type='text/template', id='data-account') !{data.account}
+  script(type='text/template', id='data-user') !{data.user}
+        
+               

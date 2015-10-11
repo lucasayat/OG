@@ -1,0 +1,49 @@
+extends ../layouts/default
+
+block head
+  title OpenGarden.
+
+block neck
+  link(rel='stylesheet', href='/views/index.min.css?#{cacheBreaker}')
+
+block body
+ div.row
+  div.col-sm-3.special
+        br
+        br
+        a.btn.btn-success.btn-lg(href='/login/') Se connecter
+        br
+        br
+        br
+        a.btn.btn-primary.btn-lg(href='/signup/') S'inscrire
+        br
+        br
+        br
+        br
+        img(src='/media/site/jarete2.jpg' width=250)
+
+  div.col-sm-5.special
+        br
+        br
+        img(src='/media/site/jardino.png' width=400)
+             
+  div.row
+    div.col-sm-3 
+     div.panel.body
+       br
+       br
+       br
+     div.panel.panel-primary(style={background:'#E9FEFF'})
+        div.panel-body(style='text-align: center')
+          h4 Planifier l'organisation de son potager et de  son verger pour la saison future.
+          h4 L'actualiser et enregistrer la réalisation.
+          a.btn.btn-primary.btn-block(href='/about/') A propos d'OpenGarden
+          
+
+     div.panel.panel-primary(style={background:'#E9FEFF'})
+        div.panel-body(style='text-align: center')
+          h4 Une question, un avis, une info à communiquer? 
+          h4 N'hésiter pas à nous contacter.
+          a.btn.btn-primary.btn-block(href='/contact/') Contactez-nous
+      
+      div.clearfix

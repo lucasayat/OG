@@ -1,0 +1,40 @@
+extends ../../../layouts/default
+
+block head
+  title Mot de passe oublié?
+
+block feet
+  script(src='/views/login/forgot/index.min.js?#{cacheBreaker}')
+
+block body
+  div.row
+    div.col-sm-6
+      div.page-header
+        h1 Mot de passe oublié?
+      div#forgot
+
+  script(type='text/template', id='tmpl-forgot')
+    form
+      div.alerts
+        |<% _.each(errors, function(err) { %>
+        div.alert.alert-danger
+          button.close(type='button', data-dismiss='alert') &times;
+          |<%- err %>
+        |<% }); %>
+        |<% if (success) { %>
+        div.alert.alert-info
+          button.close(type='button', data-dismiss='alert') &times;
+          | Si le compte correspond à l'adresse indiquée un email vous a été envoyé.
+        |<% } %>
+      |<% if (!success) { %>
+      div.form-group(class!='<%- errfor.email ? "has-error" : "" %>')
+        label Entrer votre adresse e-mail:
+        input.form-control(type='text', name='email', value!='<%= email %>')
+        span.help-block <%- errfor.email %>
+      |<% } %>
+      div.form-group
+        |<% if (!success) { %>
+        button.btn.btn-primary.btn-forgot(type='button') Envoyer
+        |<% } %>
+        |&nbsp;
+        a.btn.btn-link(href='/login/') Retour à connexion

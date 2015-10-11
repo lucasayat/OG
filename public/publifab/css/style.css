@@ -1,0 +1,358 @@
+.blink_me {
+    -webkit-animation-name: blinker;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-iteration-count: infinite;
+
+    -moz-animation-name: blinker;
+    -moz-animation-duration: 2s;
+    -moz-animation-timing-function: linear;
+    -moz-animation-iteration-count: infinite;
+
+    animation-name: blinker;
+    animation-duration: 2s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+}
+
+
+@-moz-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@-webkit-keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+@keyframes blinker {  
+    0% { opacity: 1.0; }
+    50% { opacity: 0.0; }
+    100% { opacity: 1.0; }
+}
+
+
+
+.shiny-progress .progress-text 
+{
+font-size: 120%;
+font-weight:bold;
+position: absolute;
+  right: 100px;
+  width:600px;
+  color:blue;
+  text-align:center;
+  height:30px;
+}
+
+
+#jaran,#selegan
+{
+background-color:#1B89A0;
+color:white;
+box-shadow:6px 6px 10px gray;
+font-size:20px;
+}
+
+#pot
+{
+    padding:5px;
+   border:4px solid blue;
+   background-color:white;
+   box-shadow:6px 6px 10px gray;
+}
+
+  
+body
+{
+  background-color:#F0E8E0;
+}
+
+.well 
+{
+  background-color:#FFFFCC;
+}
+
+label 
+{
+  font-size:15px;
+  display:inline-block;
+  height:10px;
+  text-align:center;
+}
+
+textarea {
+width: 95%;
+padding: 0;
+border: 1px solid #ccc;
+}
+
+
+#textev{
+width: 500px;
+padding: 10;
+border: 1px solid #ccc;
+}
+
+#pan1
+{
+  width :350px;
+}
+
+#pan2
+{
+  width :800px;
+}
+
+#legum1
+{
+width:100px;
+}
+
+
+#legicon
+{
+text-align:left;  
+color:red;
+font-size : 15px;
+}
+
+
+#parsel
+{ 
+
+font-family: Verdana,Geneva,sans-serif;
+font-size:20px;
+width:150px; 
+height:30px;
+display:inline-block; 
+color:white;
+background-color: #007791;
+text-align:center;
+}
+
+
+#jarold
+{
+display:inline-block; 
+background-color:#007791;
+color:white;
+box-shadow:6px 6px 10px gray;
+font-size:15px;
+width:150px;
+height:20px;
+}
+
+#dimactu
+{
+position:absolute;
+margin-left:150px;
+display:inline-block; 
+font-size:18px;
+font-weight : bold;
+color:blue;
+width:200px;
+height:50px;
+background-color: lightgray;
+box-shadow:6px 6px 6px black;
+}
+
+
+
+
+#stradd_1,#stradd_2,#stradd_3
+{
+  position:fixed;
+  top:200px;
+  font-size:12px;
+  
+}
+
+#create1,#create2,#create3,#jaral_1,#jaral_2,#jaral_3
+{
+  position:fixed;
+  top:250px;
+  font-size:15px;
+  
+}
+
+#rename1,#rename2,#rename3,#strurec_1,#strurec_2,#strurec_3
+{
+  position:fixed;
+  top:300px;
+  font-size:15px;  
+}
+
+#save1,#save2,#save3,#strudel_1,#strudel_2,#strudel_3
+{
+  position:fixed;
+  top:350px;
+  font-size:15px;  
+}
+
+#del1,#del2,#del3
+{
+  position:fixed;
+  top:400px;
+  font-size:15px;  
+}
+
+
+#create1:hover,#create2:hover,#create3:hover,
+#save1:hover, #save2:hover,#save3:hover,
+#del1:hover,#del2:hover,#del3:hover,
+#rename1:hover,#rename2:hover,#rename3:hover,
+#dimactu:hover,#stradd_1:hover,#strurec_1:hover,#jaral_1:hover,#strudel_1:hover,
+#stradd_2:hover,#strurec_2:hover,#jaral_2:hover,#strudel_2:hover,
+#stradd_3:hover,#strurec_3:hover,#jaral_3:hover,#strudel_3:hover
+{
+background-color: blue; 
+color:white;
+box-shadow:20px 20px 20px black 
+  
+} 
+
+#actu
+{
+  position:fixed;
+  top:250px;
+  font-size:12px;
+font-weight : bold;
+color:green;
+width:100px;
+height:100px;
+background-color: lightgrey;
+box-shadow:6px 6px 6px black;
+}
+
+h6
+{
+font-size:18px;  
+}
+
+h5{
+  font-size:20px;
+}
+ 
+
+
+h2
+{
+font-size:25px;
+text-align:center; 
+text-shadow: 5px 5px 10px gray; 
+color:blue;
+
+}
+
+
+em
+{
+  
+text-align:center; 
+color:blue;
+font-size : 13px;
+font-style : italic;
+}
+
+h4
+{
+  font-weight:bold;
+  font-size:20px;
+  color:blue;
+}
+
+
+
+#leges
+{ 
+ 
+  font-size:10px;
+display:inline-block;
+
+  color:green;
+  text-align:left;
+  
+}
+
+
+#leg2,#leg1
+{ 
+font-size:20px;
+width:180px;
+height:40px;
+font-weight : bold;
+display:inline-block; 
+color:blue;
+background-color: #c4dcf3;
+box-shadow:6px 6px 6px green;
+text-align:center;
+}
+
+
+ #com1,#com2
+ {
+   width : 95%;
+ }
+ 
+ 
+ 
+#rang1,#rang2
+
+ { 
+   font-size:18px; 
+   font-weight : bold;
+   width:80px;
+   display:inline-block;
+   background-color: #c4dcf3;
+   color:blue;
+   } 
+  
+ 
+ #sem1,#sem2,#plant1,#plant2,#rec1,#rec2,#finrec1,#finrec2 
+ { 
+   font-size:15px; 
+   font-weight : bold;
+   color : red;
+   width:100%;
+   height:30px;
+   display:inline-block; 
+   background-color: #c4dcf3;
+   box-shadow:6px 6px 6px grey;
+   text-align:center;
+   }
+
+
+#leg1:hover,#leg2:hover,#rang1:hover,#rang2:hover,#jarold:hover,
+#fichactu:hover,#rappel:hover,#jaran:hover,#changan:hover
+ { 
+   color:blue;
+   background-color: white;
+  
+   }  
+
+
+.tooltip
+{
+	font-size:14px;
+	width:100px;
+}
+
+.tooltip-inner {background-color: #0000FF;opacity:0.7;}
+.tooltip-arrow { border-bottom-color:#0000FF;
+
+.content-wrapper,
+.right-side {
+  background-color: #ffffff;
+}
+
+
+.skin-blue .wrapper,
+.skin-blue .main-sidebar,
+.skin-blue .left-side {
+  background:#000080;
+}
+

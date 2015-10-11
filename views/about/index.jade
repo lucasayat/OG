@@ -1,0 +1,32 @@
+extends ../../layouts/default
+
+block head
+  title A propos
+
+block neck
+  link(rel='stylesheet', href='/views/about/index.min.css?#{cacheBreaker}')
+
+block body
+  
+  div.row
+    div.col-sm-6
+      div.panel-body
+         h2(style={color: 'blue'}) Planifier la future saison au jardin:
+         p Dessiner avec la souris les parcelles de la saison à venir avec les légumes à y implanter  ainsi que la prévision des dates d’intervention.
+         p Les longueurs des rangs de chacun des légumes sont calculées et comparées à celle des années antérieures.
+         p Le plan du jardin et le planning des travaux de l’année sont éditables.
+      div.panel-body
+         h2(style={color: 'blue'}) Enregistrer les réalisations de l'année:
+         p Les plans de jardin ainsi que toutes les informations sont enregistrées dans des fichiers sauvegardés sur le serveur.
+         p Ces fichiers, ainsi que ceux des années antérieurs sont ainsi réutilisables à chaque connexion.
+         p Il est conseillé de sauvegarder aussi ces fichiers sur son poste.
+
+    div.col-sm-6   
+     div.panel-body
+       h3(style={color: 'blue'}) Visionner les possibilités d'OpenGarden.
+         br
+         video(width="550", height="350", controls)
+           source(src="/tutopengarden/tutog.ogg", type="video/ogg")
+           p tuto demo
+           |Your browser does not support the video tag.
+       
